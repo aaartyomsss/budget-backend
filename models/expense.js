@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const expense = new mongoose.Schema({
+const expenseSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -19,11 +19,11 @@ const expense = new mongoose.Schema({
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'User'
     }
 })
 
-userSchema.set('toJSON', {
+expenseSchema.set('toJSON', {
     transform: (document, returnedObj) => {
         returnedObj.id = returnedObj._id.toString()
         delete returnedObj._id
@@ -31,5 +31,7 @@ userSchema.set('toJSON', {
         delete returnedObj.passwordHash
     }
 })
+
+const Expense = mongoose.model('Expense', expenseSchema)
 
 module.exports = expense
