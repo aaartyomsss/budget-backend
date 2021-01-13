@@ -30,7 +30,7 @@ userRouter.get('/confirmation/:token', async (req, res) => {
     try {
         await user.save()
         console.log(user)
-        res.redirect('http://localhost:3000/login')
+        res.redirect('http://localhost:3000/activated')
     } catch (error) {
         
     }

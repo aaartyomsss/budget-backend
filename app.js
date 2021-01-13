@@ -7,6 +7,8 @@ const logger = require('./utils/loggers')
 const mongoose = require('mongoose')
 const userRouter = require('./routes/users')
 const loginRouter = require('./routes/login')
+const session = require('express-session')
+const googleAuth = require('./routes/googleAuth')
 
 logger.info('Connection to ', config.DB_CONNECTION)
 
@@ -23,10 +25,16 @@ app.use(cors())
 app.use(express.json())
 app.use(middleware.tokenExtractor)
 app.use(middleware.requestLogger)
+app.use(session({
+    secret: config.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+}))
 
 // Routes
 app.use('/api/users', userRouter)
 app.use('/api/login', loginRouter)
+app.use('/api/google', googleAuth)
 
 
 //Error handling middleware

@@ -18,7 +18,7 @@ loginRouter.post('/', async (req, res) => {
     }
 
     if(!user.confirmed){
-        return res.status(403).json({ error: 'Your account is not confirmed'})
+        return res.status(403).send({ error: 'Your account is not confirmed'})
     }
 
     const userForToken = {
