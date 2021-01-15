@@ -1,0 +1,6 @@
+DELETE http://localhost:3001/api/personal-plan/5ffffd369095bc1e8c031247
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhYXJ0eW9tc3NzIiwibmFtZSI6IkFydGpvbSBTYXZpbiIsImlkIjoiNWZmZGVlMjViNjhhODUxOTM0YzVmYWJlIiwiaWF0IjoxNjEwNjIxNjk0fQ.-chGrNZUkLuuOMwT8FfCycXCh2_AVHGekRfKTP4_aJ4"
+}

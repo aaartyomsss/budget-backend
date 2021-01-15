@@ -6,7 +6,7 @@ const User = require('../models/User')
 loginRouter.post('/', async (req, res) => {
     const body = req.body
 
-    const user = await User.findOne({ username: body.username })
+    const user = await User.findOne({ username: body.username }).populate('personalPlan')
     const passwordValidation = user === null
         ? false
         : await bcrypt.compare(body.password, user.passwordHash)
@@ -18,7 +18,7 @@ loginRouter.post('/', async (req, res) => {
     }
 
     if(!user.confirmed){
-        return res.status(403).send({ error: 'Your account is not confirmed'})
+        return res.status(403).json({ error: 'Your account is not confirmed'})
     }
 
     const userForToken = {
@@ -29,7 +29,7 @@ loginRouter.post('/', async (req, res) => {
 
     const token = jwt.sign(userForToken, process.env.SECRET)
 
-    res.status(200).send({ token, username: user.username, name: user.name, personalPlan: user.personalPlan })
+    res.status(200).send({ token, username: user.username, name: user.name, personalPlan: user.personalPlan, id: user._id })
 })
 
 module.exports = loginRouter

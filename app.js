@@ -9,6 +9,7 @@ const userRouter = require('./routes/users')
 const loginRouter = require('./routes/login')
 const session = require('express-session')
 const googleAuth = require('./routes/googleAuth')
+const personalPlan = require('./routes/personalPlan')
 
 logger.info('Connection to ', config.DB_CONNECTION)
 
@@ -35,6 +36,7 @@ app.use(session({
 app.use('/api/users', userRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/google', googleAuth)
+app.use('/api/personal-plan', personalPlan)
 
 
 //Error handling middleware

@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/personal-plan
+Content-Type: application/json
+
+{
+    "username": "aaartyomsss",
+    "title": "Food",
+    "type": "Essentials",
+    "amountSpent": 11
+}

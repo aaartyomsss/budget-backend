@@ -1,0 +1,9 @@
+PATCH http://localhost:3001/api/personal-plan/5ffffd5b53a5f83528918882
+Content-Type: application/json
+
+{
+    "title": "ice skating",
+    "type": "leasure",
+    "amountSpent": 300,
+    "date": "2021-01-14T08:13:42.241Z"
+}

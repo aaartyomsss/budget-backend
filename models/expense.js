@@ -7,7 +7,8 @@ const expenseSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        required: true
+        required: true,
+        default: Date.now
     },
     type: {
         type: String,
@@ -34,4 +35,4 @@ expenseSchema.set('toJSON', {
 
 const Expense = mongoose.model('Expense', expenseSchema)
 
-module.exports = expense
+module.exports = Expense

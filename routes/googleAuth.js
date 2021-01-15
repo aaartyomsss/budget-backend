@@ -1,15 +1,19 @@
 const googleRouter = require('express').Router()
 const UserGoogle = require('../models/UserGoogle')
 const jwt = require('jsonwebtoken')
+const config = require('../utils/config')
+
+
 
 googleRouter.post('/', async (req, res) => {
     console.log(req.body)
     const body = req.body 
 
-    let user = await UserGoogle.findOne({ googleId: body.googleId})
+    let user = await UserGoogle.findOne({ googleId: body.googleId}).populate('personalPlan')
 
     if(user) {
-        res.send({ user })
+        const token = jwt.sign(user.toJSON(), config.SECRET)
+        res.send({ token, googleId: user.googleId, email: user.email, name: user.name, id: user._id })
     } else {
         user = new UserGoogle({
             googleId: body.googleId,
@@ -18,9 +22,11 @@ googleRouter.post('/', async (req, res) => {
             image: body.imageUrl
         })
 
+        const token = jwt.sign(user.toJSON(), config.SECRET)
+
         try {
             await user.save()
-            res.send({ user })
+            res.send({ token, googleId: user.googleId, email: user.email, name: user.name, id: user._id })
         } catch (e) {
             console.error(e.message)
         }
