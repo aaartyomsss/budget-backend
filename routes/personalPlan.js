@@ -21,8 +21,9 @@ personalPlan.get('/:id', async (req, res) => {
 personalPlan.post('/', async (req, res) => {
     const body = req.body
 
+    const decoded = jwt.verify(req.token, config.SECRET)
     // Helper function return either google or a regular user to avoid code repetition
-    const user = await returningUser(body)
+    const user = await returningUser(decoded)
     
     const newExpense = new Expense({
         title: body.title,
@@ -59,7 +60,7 @@ personalPlan.patch('/:id', async (req, res) => {
 
 // Deleting
 personalPlan.delete('/:id', async (req, res) => {
-    const decodedUser = jwt.verify(req.body.token, config.SECRET)
+    const decodedUser = jwt.verify(req.token, config.SECRET)
     if(!decodedUser){
         return res.status(401).json({ error: 'Unathorized attempt to delete'})
     }
