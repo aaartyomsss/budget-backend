@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt')
 const userRouter = require('express').Router()
 const User = require('../models/User')
 const jwt = require('jsonwebtoken')
+const config = require('../utils/config')
 require('dotenv/config')
 const nodemailer = require('nodemailer')
 const confiramtionUrl = 'http://localhost:3001/api/users/confirmation'
@@ -37,6 +38,35 @@ userRouter.get('/confirmation/:token', async (req, res) => {
     
 })
 
+// Reseting passord from user options
+userRouter.patch('/reset-password', async (req, res) => {
+    const body = req.body
+    if(!body.currentPassword || !body.newPassword) {
+        return res.status(400).json({ error: 'Please fill all required fields '})
+    }
+
+    const user = await User.findOne({ username: body.username })
+    if(!user) {
+        return res.status(404).json({ error: 'User was not found' })
+    }
+
+    const passwordValidation = await bcrypt.compare(body.currentPassword, user.passwordHash)
+    if (!passwordValidation) {
+        return res.status(401).json({ error: 'Invalid current password' })
+    }
+
+    const newPasswordHash = await bcrypt.hash(body.newPassword, parseInt(config.SALT_ROUNDS))
+
+
+    try {
+        await User.updateOne({ _id: user._id }, {$set: { passwordHash: newPasswordHash }})
+        return res.status(200).json( { message: 'Password was successfully changed ' } )    
+    } catch (error) {
+        return res.status(400).json( { error: `Error occured while saving new password ${error.message}`})
+    }
+    
+})
+
 // Registration 
 userRouter.post('/', async (req, res) => {
     const body = req.body
@@ -50,8 +80,7 @@ userRouter.post('/', async (req, res) => {
         return res.status(400).json({ error: 'password length is less than 3'})
     }
 
-    const saltRounds = 10
-    const passwordHash = await bcrypt.hash(body.password, saltRounds)
+    const passwordHash = await bcrypt.hash(body.password, parseInt(config.SALT_ROUNDS))
 
     const user = new User({
         username: body.username,
@@ -60,7 +89,7 @@ userRouter.post('/', async (req, res) => {
         passwordHash
     })
 
-    const emailToken = jwt.sign(user.toJSON(), process.env.EMAIL_TOKEN)
+    const emailToken = jwt.sign(user.toJSON(), config.EMAIL_TOKEN)
     console.log(emailToken)
 
     try {
@@ -70,8 +99,8 @@ userRouter.post('/', async (req, res) => {
         let transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
-                user: process.env.GMAIL_USER, 
-                pass: process.env.GMAIL_PASSWORD, 
+                user: config.GMAIL_USER, 
+                pass: config.GMAIL_PASSWORD, 
             },
         })
     

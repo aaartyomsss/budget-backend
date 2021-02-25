@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer')
 const baseUrl = 'http://localhost:3001/api/users/confirmation'
 require('dotenv/config')
 
+// Email for confirming registration
 exports.sendConfiramtion = async (email, name, token) => {
     let transporter = nodemailer.createTransport({
         service: 'Gmail',
@@ -24,3 +25,6 @@ exports.sendConfiramtion = async (email, name, token) => {
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info))
 
 }
+
+// Email for reseting the password
+

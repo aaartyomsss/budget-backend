@@ -6,6 +6,7 @@ const SESSION_SECRET = process.env.SESSION_SECRET
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
 const SECRET = process.env.SECRET
+const SALT_ROUNDS = process.env.SALT_ROUNDS
 
 module.exports = {
     PORT, 
@@ -13,5 +14,6 @@ module.exports = {
     SESSION_SECRET,
     GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET,
-    SECRET 
+    SECRET,
+    SALT_ROUNDS 
 }
