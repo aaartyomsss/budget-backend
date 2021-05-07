@@ -30,12 +30,12 @@ personalPlan.post('/', async (req, res) => {
         type: body.type,
         amountSpent: body.amountSpent,
         user: user._id,
+        date: body.date
     })
 
     const savedExpense = await newExpense.save()
     user.personalPlan = user.personalPlan.concat(savedExpense._id)
     await user.save()
-    console.log(user)
     res.json(savedExpense)
 
 })
@@ -50,12 +50,9 @@ personalPlan.patch('/:id', async (req, res) => {
         date: req.body.date
     }
 
-    console.log(update)
-
     const toUpdate = await Expense.findOneAndUpdate(filter, update, { new: true })
 
     return res.json(toUpdate)
-
 })
 
 // Deleting
