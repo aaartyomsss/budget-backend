@@ -1,0 +1,6 @@
+PATCH  http://localhost:3001/api/family-plan-request/request-response/60bf6206ffd04131a03f1322
+Content-Type: application/json
+
+{
+    "answer": "declined"
+}
