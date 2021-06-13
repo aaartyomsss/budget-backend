@@ -17,6 +17,10 @@ const familyPlanRequestSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  planId: {
+    type: String,
+    required: true,
+  },
 });
 
 familyPlanRequestSchema.set("toJSON", {

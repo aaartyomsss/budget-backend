@@ -1,0 +1,7 @@
+POST http://localhost:3001/api/family-plan/initialize-plan
+Content-Type: application/json
+
+{
+    "userId": "5ffdee25b68a851934c5fabe",
+    "planName": "Test initialization"
+}

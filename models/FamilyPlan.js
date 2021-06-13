@@ -1,10 +1,13 @@
 const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
 
 const familyPlanScheme = new mongoose.Schema({
   users: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
+      unique: true,
     },
   ],
   expenses: [
@@ -21,7 +24,14 @@ const familyPlanScheme = new mongoose.Schema({
     type: String,
     required: true,
   },
+  created_by: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
+
+familyPlanScheme.plugin(uniqueValidator);
 
 familyPlanScheme.set("toJSON", {
   transform: (document, returnedObj) => {

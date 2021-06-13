@@ -11,6 +11,7 @@ const session = require("express-session");
 const googleAuth = require("./routes/googleAuth");
 const personalPlan = require("./routes/personalPlan");
 const familyPlanRequestRouter = require("./routes/familyPlanRequest");
+const familyPlanRouter = require("./routes/familyPlan");
 
 logger.info("Connection to ", config.DB_CONNECTION);
 
@@ -47,6 +48,7 @@ app.use("/api/login", loginRouter);
 app.use("/api/google", googleAuth);
 app.use("/api/personal-plan", personalPlan);
 app.use("/api/family-plan-request", familyPlanRequestRouter);
+app.use("/api/family-plan", familyPlanRouter);
 
 //Error handling middleware
 app.use(middleware.errorHandler);

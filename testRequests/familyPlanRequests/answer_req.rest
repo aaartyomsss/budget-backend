@@ -1,6 +1,7 @@
-PATCH  http://localhost:3001/api/family-plan-request/request-response/60bf6206ffd04131a03f1322
+PATCH  http://localhost:3001/api/family-plan-request/request-response/60c620ede4c19b2464a1d246
 Content-Type: application/json
 
 {
-    "answer": "declined"
+    "answer": "accepted",
+    "userId": "60c622f91f5a560a7062302a"
 }

@@ -31,6 +31,12 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  familyPlans: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "FamilyPlan",
+    },
+  ],
 });
 
 userSchema.plugin(uniqueValidator);

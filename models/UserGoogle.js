@@ -18,6 +18,12 @@ const userGoogleSchema = new mongoose.Schema({
       ref: "Expense",
     },
   ],
+  familyPlans: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "FamilyPlan",
+    },
+  ],
   email: {
     type: String,
     required: true,
