@@ -1,13 +1,13 @@
-const familyPlanRouter = require("express").Router();
-const FamilyPlan = require("../models/FamilyPlan");
-const { returningUserById } = require("../utils/helperFunctions");
+const familyPlanRouter = require('express').Router();
+const FamilyPlan = require('../models/FamilyPlan');
+const User = require('../models/User');
 
-familyPlanRouter.get("/plans", async (req, res) => {
+familyPlanRouter.get('/plans', async (req, res) => {
   const all = await FamilyPlan.find({});
   res.json(all);
 });
 
-familyPlanRouter.post("/initialize-plan", async (req, res) => {
+familyPlanRouter.post('/initialize-plan', async (req, res) => {
   const { planName, userId } = req.body;
   const newFamilyPlan = new FamilyPlan({
     users: [userId],
